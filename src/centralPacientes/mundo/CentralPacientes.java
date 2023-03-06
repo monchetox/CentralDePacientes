@@ -70,6 +70,7 @@ public class CentralPacientes {
      *            pac!=null y no existe un paciente con código igual a pac.codigo
      */
     public void agregarPacienteAlComienzo(Paciente pac) {
+        pacientes.add(0, pac);
         // TODO: Realiar el método que agrega al principio
     }
 
@@ -80,6 +81,7 @@ public class CentralPacientes {
      *            pac!=null y no existe un paciente con código igual a pac.codigo
      */
     public void agregarPacienteAlFinal(Paciente pac) {
+        pacientes.add(pac);
         // TODO: Agragar un paciente al final de la lista
     }
 
@@ -87,6 +89,8 @@ public class CentralPacientes {
      * Adiciona un paciente a la lista de pacientes antes del paciente con el código especificado. <br>
      */
     public void agregarPacienteAntesDe(int cod, Paciente pac) throws NoExisteException {
+        int index = pacientes.indexOf(localizar(cod));
+        pacientes.add(index,pac);
         // TODO: Agrega un paciente después del paciente con el código dado
     }
 
@@ -94,6 +98,8 @@ public class CentralPacientes {
      * Adiciona un paciente a la lista de pacientes después del paciente con el código especificado.
      */
     public void agregarPacienteDespuesDe(int cod, Paciente pac) throws NoExisteException {
+        int index = pacientes.indexOf(localizar(cod));
+        pacientes.add(index+1,pac);
         // TODO: Agrega un paciente después del paciente con el código cod
     }
 
@@ -101,6 +107,11 @@ public class CentralPacientes {
      * Busca el paciente con el código dado en la lista de pacientes.
      */
     public Paciente localizar(int codigo) {
+        for (int i = 0; i < darLongitud(); ++i){
+            if (pacientes.get(i).darCodigo() == codigo) {
+                return pacientes.get(i);
+            }
+        }
         return null;
     }
 
@@ -108,6 +119,8 @@ public class CentralPacientes {
      * Elimina el paciente con el código especificado.
      */
     public void eliminarPaciente(int cod) throws NoExisteException {
+        int index = pacientes.indexOf(localizar(cod));
+        pacientes.remove(index);
         // TODO: Si no existe el paciente con el código dado, genera la excepción
     }
 
@@ -140,14 +153,27 @@ public class CentralPacientes {
      * Retorna la cantidad de hombres que hay en la lista
      */
     public int cantHombres() {
-        return 0;
+        int m = 0;
+        for (int i = 0; i<darLongitud(); ++i){
+            if (pacientes.get(i).darSexo()==1){
+                m++;
+            }
+        }
+        return m;
     }
 
     /**
      * Retorna la cantidad de mujeres que hay en la lista
      */
     public int cantMujeres() {
-        return 0;
+        int f = 0;
+
+        for (int i = 0; i<darLongitud(); ++i){
+            if (pacientes.get(i).darSexo()==2){
+                f++;
+            }
+        }
+        return f;
     }
 
     /**
@@ -157,7 +183,36 @@ public class CentralPacientes {
      * @return nombre de la clínica
      */
     public String metodo4() {
-        return "Respuesta 4";
+        int c1=0, c2=0, c3=0, c4=0, c5=0, c6=0;
+        for (int i = 0; i < darLongitud(); ++i){
+            if (pacientes.get(i).darClinica().equals("Clínica del Country")){
+                c1++;
+            } else if (pacientes.get(i).darClinica().equals("Clínica Palermo")) {
+                c2++;
+            } else if (pacientes.get(i).darClinica().equals("Clínica Reina Sofía")) {
+                c3++;
+            } else if (pacientes.get(i).darClinica().equals("Clínica El Bosque")) {
+                c4++;
+            } else if (pacientes.get(i).darClinica().equals("Clínica San Ignacio")) {
+                c5++;
+            } else if (pacientes.get(i).darClinica().equals("Otra")) {
+                c6++;
+            }
+        }
+        if (c1>c2 && c1>c3 && c1>c4 && c1>c5 && c1>c6){
+            return "Clínica del Country";
+        } else if (c2>c1 && c2>c3 && c2>c4 && c2>c5 && c2>c6) {
+            return "Clínica Palermo";
+        } else if (c3>c1 && c3>c2 && c3>c4 && c3>c5 && c3>c6) {
+            return "Clínica Reina Sofía";
+        } else if (c4>c1 && c4>c2 && c4>c3 && c4>c5 && c4>c6) {
+            return "Clínica El Bosque";
+        } else if (c5>c1 && c5>c2 && c5>c3 && c5>c4 && c5>c6) {
+            return "Clínica San Ignacio";
+        } else if (c6>c1 && c6>c2 && c6>c3 && c6>c4 && c6>c5) {
+            return "Otra";
+        }
+        return "";
     }
 
 
