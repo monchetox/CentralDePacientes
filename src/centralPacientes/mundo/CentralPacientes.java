@@ -1,7 +1,7 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad Ean (Bogotá - Colombia)
- * Departamento de Tecnologías de la Información y Comunicaciones
+ * Universidad Ean (BogotÃ¡ - Colombia)
+ * Departamento de TecnologÃ­as de la InformaciÃ³n y Comunicaciones
  * Licenciado bajo el esquema Academic Free License version 2.1
  * <p>
  * Proyecto Central de Pacientes.
@@ -27,7 +27,7 @@ public class CentralPacientes {
     private ArrayList<Paciente> pacientes;
 
     /**
-     * Vector de clínicas manejadas por la central
+     * Vector de clÃ­nicas manejadas por la central
      */
     private ArrayList<String> listaClinicas;
 
@@ -36,28 +36,28 @@ public class CentralPacientes {
     // -----------------------------------------------------------------
 
     /**
-     * Crea una nueva central sin pacientes y con una lista predefinida de clínicas
+     * Crea una nueva central sin pacientes y con una lista predefinida de clÃ­nicas
      */
     public CentralPacientes() {
         pacientes = new ArrayList<>();
 
         listaClinicas = new ArrayList<>();
-        listaClinicas.add("Clínica del Country");
-        listaClinicas.add("Clínica Palermo");
-        listaClinicas.add("Clínica Reina Sofía");
-        listaClinicas.add("Clínica El Bosque");
-        listaClinicas.add("Clínica San Ignacio");
+        listaClinicas.add("ClÃ­nica del Country");
+        listaClinicas.add("ClÃ­nica Palermo");
+        listaClinicas.add("ClÃ­nica Reina SofÃ­a");
+        listaClinicas.add("ClÃ­nica El Bosque");
+        listaClinicas.add("ClÃ­nica San Ignacio");
         listaClinicas.add("Otra");
     }
 
     // -----------------------------------------------------------------
-    // Métodos
+    // MÃ©todos
     // -----------------------------------------------------------------
 
     /**
-     * Retorna el número de pacientes de la clínica
+     * Retorna el nÃºmero de pacientes de la clÃ­nica
      *
-     * @return El número de pacientes de la clínica
+     * @return El nÃºmero de pacientes de la clÃ­nica
      */
     public int darNumeroPacientes() {
         return pacientes.size();
@@ -67,40 +67,68 @@ public class CentralPacientes {
      * Adiciona un paciente al principio de la lista
      *
      * @param pac El paciente a ser agregado al comienzo de la lista. <br>
-     *            pac!=null y no existe un paciente con código igual a pac.codigo
+     *            pac!=null y no existe un paciente con cÃ³digo igual a pac.codigo
      */
     public void agregarPacienteAlComienzo(Paciente pac) {
         pacientes.add(0, pac);
     }
 
     /**
-     * Adiciona un paciente al final de la lista. Si la lista está vacía el paciente queda de primero
+     * Adiciona un paciente al final de la lista. Si la lista estÃ¡ vacÃ­a el paciente queda de primero
      *
      * @param pac El paciente a ser agregado al final la lista. <br>
-     *            pac!=null y no existe un paciente con código igual a pac.codigo
+     *            pac!=null y no existe un paciente con cÃ³digo igual a pac.codigo
      */
     public void agregarPacienteAlFinal(Paciente pac) {
-        pacientes.add(pac);
+        if (pacientes.isEmpty()) {
+            pacientes.add(pac);
+        } else {
+            pacientes.add(pacientes.size(), pac);
+        }
     }
 
     /**
-     * Adiciona un paciente a la lista de pacientes antes del paciente con el código especificado. <br>
+     * Adiciona un paciente a la lista de pacientes antes del paciente con el cÃ³digo especificado. <br>
      */
     public void agregarPacienteAntesDe(int cod, Paciente pac) throws NoExisteException {
-        int index = pacientes.indexOf(localizar(cod));
-        pacientes.add(index,pac);
+        boolean encontrado = false;
+
+        for (int i = 0; i < pacientes.size(); i++) {
+            Paciente p = pacientes.get(i);
+            if (p.darCodigo() == cod) {
+                pacientes.add(i, pac);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            throw new NoExisteException(cod);
+        }
     }
 
     /**
-     * Adiciona un paciente a la lista de pacientes después del paciente con el código especificado.
+     * Adiciona un paciente a la lista de pacientes despuÃ©s del paciente con el cÃ³digo especificado.
      */
     public void agregarPacienteDespuesDe(int cod, Paciente pac) throws NoExisteException {
-        int index = pacientes.indexOf(localizar(cod));
-        pacientes.add(index+1,pac);
+        boolean encontrado = false;
+
+        for (int i = 0; i < pacientes.size() - 1; i++) {
+            Paciente p = pacientes.get(i);
+            if (p.darCodigo() == cod) {
+                pacientes.add(i + 1, pac);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            throw new NoExisteException(cod);
+        }
     }
 
     /**
-     * Busca el paciente con el código dado en la lista de pacientes.
+     * Busca el paciente con el cÃ³digo dado en la lista de pacientes.
      */
     public Paciente localizar(int codigo) {
         for (int i = 0; i < darLongitud(); ++i){
@@ -112,11 +140,14 @@ public class CentralPacientes {
     }
 
     /**
-     * Elimina el paciente con el código especificado.
+     * Elimina el paciente con el cÃ³digo especificado.
      */
     public void eliminarPaciente(int cod) throws NoExisteException {
-        int index = pacientes.indexOf(localizar(cod));
-        pacientes.remove(index);
+        boolean eliminado = pacientes.removeIf(p -> p.darCodigo() == cod);
+
+        if (!eliminado) {
+            throw new NoExisteException(cod);
+        }
     }
 
     /**
@@ -127,7 +158,7 @@ public class CentralPacientes {
     }
 
     /**
-     * Retorna la lista de clínicas manejadas por la central
+     * Retorna la lista de clÃ­nicas manejadas por la central
      */
     public ArrayList<String> darListaClinicas() {
         return listaClinicas;
@@ -141,7 +172,7 @@ public class CentralPacientes {
     }
 
     // -----------------------------------------------------------------
-    // Puntos de Extensión
+    // Puntos de ExtensiÃ³n
     // -----------------------------------------------------------------
 
     /**
@@ -172,38 +203,38 @@ public class CentralPacientes {
     }
 
     /**
-     * De las 6 opciones de clínicas que tiene la central
-     * ¿Cuál es el nombre de la más ocupada, la que tiene más pacientes?
+     * De las 6 opciones de clÃ­nicas que tiene la central
+     * Â¿CuÃ¡l es el nombre de la mÃ¡s ocupada, la que tiene mÃ¡s pacientes?
      *
-     * @return nombre de la clínica
+     * @return nombre de la clÃ­nica
      */
     public String metodo4() {
         int c1=0, c2=0, c3=0, c4=0, c5=0, c6=0;
         for (int i = 0; i < darLongitud(); ++i){
-            if (pacientes.get(i).darClinica().equals("Clínica del Country")){
+            if (pacientes.get(i).darClinica().equals("Clï¿½nica del Country")){
                 c1++;
-            } else if (pacientes.get(i).darClinica().equals("Clínica Palermo")) {
+            } else if (pacientes.get(i).darClinica().equals("Clï¿½nica Palermo")) {
                 c2++;
-            } else if (pacientes.get(i).darClinica().equals("Clínica Reina Sofía")) {
+            } else if (pacientes.get(i).darClinica().equals("Clï¿½nica Reina Sofï¿½a")) {
                 c3++;
-            } else if (pacientes.get(i).darClinica().equals("Clínica El Bosque")) {
+            } else if (pacientes.get(i).darClinica().equals("Clï¿½nica El Bosque")) {
                 c4++;
-            } else if (pacientes.get(i).darClinica().equals("Clínica San Ignacio")) {
+            } else if (pacientes.get(i).darClinica().equals("Clï¿½nica San Ignacio")) {
                 c5++;
             } else if (pacientes.get(i).darClinica().equals("Otra")) {
                 c6++;
             }
         }
         if (c1>c2 && c1>c3 && c1>c4 && c1>c5 && c1>c6){
-            return "Clínica del Country";
+            return "Clï¿½nica del Country";
         } else if (c2>c1 && c2>c3 && c2>c4 && c2>c5 && c2>c6) {
-            return "Clínica Palermo";
+            return "Clï¿½nica Palermo";
         } else if (c3>c1 && c3>c2 && c3>c4 && c3>c5 && c3>c6) {
-            return "Clínica Reina Sofía";
+            return "Clï¿½nica Reina Sofï¿½a";
         } else if (c4>c1 && c4>c2 && c4>c3 && c4>c5 && c4>c6) {
-            return "Clínica El Bosque";
+            return "Clï¿½nica El Bosque";
         } else if (c5>c1 && c5>c2 && c5>c3 && c5>c4 && c5>c6) {
-            return "Clínica San Ignacio";
+            return "Clï¿½nica San Ignacio";
         } else if (c6>c1 && c6>c2 && c6>c3 && c6>c4 && c6>c5) {
             return "Otra";
         }
