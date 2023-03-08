@@ -71,7 +71,6 @@ public class CentralPacientes {
      */
     public void agregarPacienteAlComienzo(Paciente pac) {
         pacientes.add(0, pac);
-        // TODO: Realiar el método que agrega al principio
     }
 
     /**
@@ -82,7 +81,6 @@ public class CentralPacientes {
      */
     public void agregarPacienteAlFinal(Paciente pac) {
         pacientes.add(pac);
-        // TODO: Agragar un paciente al final de la lista
     }
 
     /**
@@ -91,7 +89,6 @@ public class CentralPacientes {
     public void agregarPacienteAntesDe(int cod, Paciente pac) throws NoExisteException {
         int index = pacientes.indexOf(localizar(cod));
         pacientes.add(index,pac);
-        // TODO: Agrega un paciente después del paciente con el código dado
     }
 
     /**
@@ -100,7 +97,6 @@ public class CentralPacientes {
     public void agregarPacienteDespuesDe(int cod, Paciente pac) throws NoExisteException {
         int index = pacientes.indexOf(localizar(cod));
         pacientes.add(index+1,pac);
-        // TODO: Agrega un paciente después del paciente con el código cod
     }
 
     /**
@@ -121,7 +117,6 @@ public class CentralPacientes {
     public void eliminarPaciente(int cod) throws NoExisteException {
         int index = pacientes.indexOf(localizar(cod));
         pacientes.remove(index);
-        // TODO: Si no existe el paciente con el código dado, genera la excepción
     }
 
     /**
