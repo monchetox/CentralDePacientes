@@ -131,6 +131,11 @@ public class CentralPacientes {
      * Busca el paciente con el código dado en la lista de pacientes.
      */
     public Paciente localizar(int codigo) {
+        for (int i = 0; i < darLongitud(); ++i){
+            if (pacientes.get(i).darCodigo() == codigo) {
+                return pacientes.get(i);
+            }
+        }
         return null;
     }
 
@@ -174,14 +179,27 @@ public class CentralPacientes {
      * Retorna la cantidad de hombres que hay en la lista
      */
     public int cantHombres() {
-        return 0;
+        int m = 0;
+        for (int i = 0; i<darLongitud(); ++i){
+            if (pacientes.get(i).darSexo()==1){
+                m++;
+            }
+        }
+        return m;
     }
 
     /**
      * Retorna la cantidad de mujeres que hay en la lista
      */
     public int cantMujeres() {
-        return 0;
+        int f = 0;
+
+        for (int i = 0; i<darLongitud(); ++i){
+            if (pacientes.get(i).darSexo()==2){
+                f++;
+            }
+        }
+        return f;
     }
 
     /**
@@ -191,7 +209,36 @@ public class CentralPacientes {
      * @return nombre de la clínica
      */
     public String metodo4() {
-        return "Respuesta 4";
+        int c1=0, c2=0, c3=0, c4=0, c5=0, c6=0;
+        for (int i = 0; i < darLongitud(); ++i){
+            if (pacientes.get(i).darClinica().equals("Cl�nica del Country")){
+                c1++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica Palermo")) {
+                c2++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica Reina Sof�a")) {
+                c3++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica El Bosque")) {
+                c4++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica San Ignacio")) {
+                c5++;
+            } else if (pacientes.get(i).darClinica().equals("Otra")) {
+                c6++;
+            }
+        }
+        if (c1>c2 && c1>c3 && c1>c4 && c1>c5 && c1>c6){
+            return "Cl�nica del Country";
+        } else if (c2>c1 && c2>c3 && c2>c4 && c2>c5 && c2>c6) {
+            return "Cl�nica Palermo";
+        } else if (c3>c1 && c3>c2 && c3>c4 && c3>c5 && c3>c6) {
+            return "Cl�nica Reina Sof�a";
+        } else if (c4>c1 && c4>c2 && c4>c3 && c4>c5 && c4>c6) {
+            return "Cl�nica El Bosque";
+        } else if (c5>c1 && c5>c2 && c5>c3 && c5>c4 && c5>c6) {
+            return "Cl�nica San Ignacio";
+        } else if (c6>c1 && c6>c2 && c6>c3 && c6>c4 && c6>c5) {
+            return "Otra";
+        }
+        return "";
     }
 
 
