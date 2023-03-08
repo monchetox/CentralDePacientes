@@ -42,11 +42,11 @@ public class CentralPacientes {
         pacientes = new ArrayList<>();
 
         listaClinicas = new ArrayList<>();
-        listaClinicas.add("Clínica del Country");
-        listaClinicas.add("Clínica Palermo");
-        listaClinicas.add("Clínica Reina Sofía");
-        listaClinicas.add("Clínica El Bosque");
-        listaClinicas.add("Clínica San Ignacio");
+        listaClinicas.add("Clinica del Country");
+        listaClinicas.add("Clinica Palermo");
+        listaClinicas.add("Clinica Reina Sofia");
+        listaClinicas.add("Clinica El Bosque");
+        listaClinicas.add("Clinica San Ignacio");
         listaClinicas.add("Otra");
     }
 
@@ -193,7 +193,6 @@ public class CentralPacientes {
      */
     public int cantMujeres() {
         int f = 0;
-
         for (int i = 0; i<darLongitud(); ++i){
             if (pacientes.get(i).darSexo()==2){
                 f++;
@@ -211,30 +210,30 @@ public class CentralPacientes {
     public String metodo4() {
         int c1=0, c2=0, c3=0, c4=0, c5=0, c6=0;
         for (int i = 0; i < darLongitud(); ++i){
-            if (pacientes.get(i).darClinica().equals("Cl�nica del Country")){
+            if (pacientes.get(i).darClinica().equals("Clinica del Country")){
                 c1++;
-            } else if (pacientes.get(i).darClinica().equals("Cl�nica Palermo")) {
+            } else if (pacientes.get(i).darClinica().equals("Clinica Palermo")) {
                 c2++;
-            } else if (pacientes.get(i).darClinica().equals("Cl�nica Reina Sof�a")) {
+            } else if (pacientes.get(i).darClinica().equals("Clinica Reina Sofia")) {
                 c3++;
-            } else if (pacientes.get(i).darClinica().equals("Cl�nica El Bosque")) {
+            } else if (pacientes.get(i).darClinica().equals("Clinica El Bosque")) {
                 c4++;
-            } else if (pacientes.get(i).darClinica().equals("Cl�nica San Ignacio")) {
+            } else if (pacientes.get(i).darClinica().equals("Clinica San Ignacio")) {
                 c5++;
             } else if (pacientes.get(i).darClinica().equals("Otra")) {
                 c6++;
             }
         }
         if (c1>c2 && c1>c3 && c1>c4 && c1>c5 && c1>c6){
-            return "Cl�nica del Country";
+            return "Clínica del Country";
         } else if (c2>c1 && c2>c3 && c2>c4 && c2>c5 && c2>c6) {
-            return "Cl�nica Palermo";
+            return "Clínica Palermo";
         } else if (c3>c1 && c3>c2 && c3>c4 && c3>c5 && c3>c6) {
-            return "Cl�nica Reina Sof�a";
+            return "Clínica Reina Sofía";
         } else if (c4>c1 && c4>c2 && c4>c3 && c4>c5 && c4>c6) {
-            return "Cl�nica El Bosque";
+            return "Clínica El Bosque";
         } else if (c5>c1 && c5>c2 && c5>c3 && c5>c4 && c5>c6) {
-            return "Cl�nica San Ignacio";
+            return "Clínica San Ignacio";
         } else if (c6>c1 && c6>c2 && c6>c3 && c6>c4 && c6>c5) {
             return "Otra";
         }
