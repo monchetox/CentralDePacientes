@@ -1,3 +1,14 @@
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Universidad Ean (Bogotá - Colombia)
+ * Departamento de Tecnologías de la Información y Comunicaciones
+ * Licenciado bajo el esquema Academic Free License version 2.1
+ * <p>
+ * Proyecto Central de Pacientes.
+ * Adaptado de CUPI2 (Uniandes)
+ * Fecha: Febrero 2021
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 package centralPacientes.mundo;
 
 import java.util.ArrayList;
@@ -59,11 +70,7 @@ public class CentralPacientes {
      *            pac!=null y no existe un paciente con código igual a pac.codigo
      */
     public void agregarPacienteAlComienzo(Paciente pac) {
-        if (pac.darCodigo() > 0) {
-            darPacientes().add(0,pac);
-        }
-
-        // TODO: Realiar el método que agrega al principio
+        pacientes.add(0, pac);
     }
 
     /**
@@ -73,19 +80,31 @@ public class CentralPacientes {
      *            pac!=null y no existe un paciente con código igual a pac.codigo
      */
     public void agregarPacienteAlFinal(Paciente pac) {
-        if (pac.darCodigo() > 0) {
-            darPacientes().add(pac);
+        if (pacientes.isEmpty()) {
+            pacientes.add(pac);
+        } else {
+            pacientes.add(pacientes.size(), pac);
         }
-        // TODO: Agragar un paciente al final de la lista
     }
 
     /**
      * Adiciona un paciente a la lista de pacientes antes del paciente con el código especificado. <br>
      */
     public void agregarPacienteAntesDe(int cod, Paciente pac) throws NoExisteException {
-        int posicion = darPacientes().indexOf(localizar(cod));
-        darPacientes().add(posicion,pac);
-        // TODO: Agrega un paciente después del paciente con el código dado
+        boolean encontrado = false;
+
+        for (int i = 0; i < pacientes.size(); i++) {
+            Paciente p = pacientes.get(i);
+            if (p.darCodigo() == cod) {
+                pacientes.add(i, pac);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            throw new NoExisteException(cod);
+        }
     }
 
 
@@ -93,10 +112,20 @@ public class CentralPacientes {
      * Adiciona un paciente a la lista de pacientes después del paciente con el código especificado.
      */
     public void agregarPacienteDespuesDe(int cod, Paciente pac) throws NoExisteException {
-        int index = darPacientes().indexOf(localizar(cod));
-        int posicion = (index+1);
-        darPacientes().add(posicion,pac);
-        // TODO: Agrega un paciente después del paciente con el código cod
+        boolean encontrado = false;
+
+        for (int i = 0; i < pacientes.size() - 1; i++) {
+            Paciente p = pacientes.get(i);
+            if (p.darCodigo() == cod) {
+                pacientes.add(i + 1, pac);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            throw new NoExisteException(cod);
+        }
     }
 
     /**
@@ -116,10 +145,7 @@ public class CentralPacientes {
      * Elimina el paciente con el código especificado.
      */public void eliminarPaciente(int cod) throws NoExisteException {
          pacientes.remove(localizar(cod));
-        // TODO: Si no existe el paciente con el código dado, genera la excepción
      }
-
-
 
     /**
      * Devuelve una lista con los pacientes de la central
@@ -150,26 +176,27 @@ public class CentralPacientes {
      * Retorna la cantidad de hombres que hay en la lista
      */
     public int cantHombres() {
-        int contador = 0;
-        for (int i = 0; i < pacientes.size(); ++i) {
-            if (pacientes.get(i).darSexo() == 1) {
-                contador ++;
+        int m = 0;
+        for (int i = 0; i<darLongitud(); ++i){
+            if (pacientes.get(i).darSexo()==1){
+                m++;
             }
         }
-        return contador;
+        return m;
     }
 
     /**
      * Retorna la cantidad de mujeres que hay en la lista
      */
     public int cantMujeres() {
-        int contador = 0;
-        for (int i = 0; i < pacientes.size(); ++i) {
-            if (pacientes.get(i).darSexo() == 2) {
-                contador ++;
+        int f = 0;
+
+        for (int i = 0; i<darLongitud(); ++i){
+            if (pacientes.get(i).darSexo()==2){
+                f++;
             }
         }
-        return contador;
+        return f;
     }
 
     /**
@@ -179,7 +206,36 @@ public class CentralPacientes {
      * @return nombre de la clínica
      */
     public String metodo4() {
-        return "Respuesta 4";
+        int c1=0, c2=0, c3=0, c4=0, c5=0, c6=0;
+        for (int i = 0; i < darLongitud(); ++i){
+            if (pacientes.get(i).darClinica().equals("Cl�nica del Country")){
+                c1++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica Palermo")) {
+                c2++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica Reina Sof�a")) {
+                c3++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica El Bosque")) {
+                c4++;
+            } else if (pacientes.get(i).darClinica().equals("Cl�nica San Ignacio")) {
+                c5++;
+            } else if (pacientes.get(i).darClinica().equals("Otra")) {
+                c6++;
+            }
+        }
+        if (c1>c2 && c1>c3 && c1>c4 && c1>c5 && c1>c6){
+            return "Cl�nica del Country";
+        } else if (c2>c1 && c2>c3 && c2>c4 && c2>c5 && c2>c6) {
+            return "Cl�nica Palermo";
+        } else if (c3>c1 && c3>c2 && c3>c4 && c3>c5 && c3>c6) {
+            return "Cl�nica Reina Sof�a";
+        } else if (c4>c1 && c4>c2 && c4>c3 && c4>c5 && c4>c6) {
+            return "Cl�nica El Bosque";
+        } else if (c5>c1 && c5>c2 && c5>c3 && c5>c4 && c5>c6) {
+            return "Cl�nica San Ignacio";
+        } else if (c6>c1 && c6>c2 && c6>c3 && c6>c4 && c6>c5) {
+            return "Otra";
+        }
+        return "";
     }
 
 
