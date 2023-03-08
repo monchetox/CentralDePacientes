@@ -107,6 +107,7 @@ public class CentralPacientes {
         }
     }
 
+
     /**
      * Adiciona un paciente a la lista de pacientes después del paciente con el código especificado.
      */
@@ -131,7 +132,7 @@ public class CentralPacientes {
      * Busca el paciente con el código dado en la lista de pacientes.
      */
     public Paciente localizar(int codigo) {
-        for (int i = 0; i < darLongitud(); ++i){
+        for (int i = 0; i < pacientes.size(); ++i) {
             if (pacientes.get(i).darCodigo() == codigo) {
                 return pacientes.get(i);
             }
@@ -139,16 +140,12 @@ public class CentralPacientes {
         return null;
     }
 
+
     /**
      * Elimina el paciente con el código especificado.
-     */
-    public void eliminarPaciente(int cod) throws NoExisteException {
-        boolean eliminado = pacientes.removeIf(p -> p.darCodigo() == cod);
-
-        if (!eliminado) {
-            throw new NoExisteException(cod);
-        }
-    }
+     */public void eliminarPaciente(int cod) throws NoExisteException {
+         pacientes.remove(localizar(cod));
+     }
 
     /**
      * Devuelve una lista con los pacientes de la central
