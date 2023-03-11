@@ -60,6 +60,7 @@ public class CentralPacientes {
      * @return El número de pacientes de la clínica
      */
     public int darNumeroPacientes() {
+        
         return pacientes.size();
     }
 
@@ -91,42 +92,36 @@ public class CentralPacientes {
      * Adiciona un paciente a la lista de pacientes antes del paciente con el código especificado. <br>
      */
     public void agregarPacienteAntesDe(int cod, Paciente pac) throws NoExisteException {
-        boolean encontrado = false;
-
+        int indice = -1;
         for (int i = 0; i < pacientes.size(); i++) {
-            Paciente p = pacientes.get(i);
-            if (p.darCodigo() == cod) {
-                pacientes.add(i, pac);
-                encontrado = true;
+            if (pacientes.get(i).darCodigo() == cod) {
+                indice = i;
                 break;
             }
         }
-
-        if (!encontrado) {
-            throw new NoExisteException(cod);
+        if (indice == -1) {
+            throw new NoExisteException("No existe un paciente con el código " + cod);
         }
-    }
+        pacientes.add(indice, pac);
+
 
 
     /**
      * Adiciona un paciente a la lista de pacientes después del paciente con el código especificado.
      */
-    public void agregarPacienteDespuesDe(int cod, Paciente pac) throws NoExisteException {
-        boolean encontrado = false;
-
-        for (int i = 0; i < pacientes.size() - 1; i++) {
-            Paciente p = pacientes.get(i);
-            if (p.darCodigo() == cod) {
-                pacientes.add(i + 1, pac);
-                encontrado = true;
-                break;
-            }
-        }
-
-        if (!encontrado) {
-            throw new NoExisteException(cod);
-        }
-    }
+   public void agregarPacienteDespuesDe(int cod, Paciente pac) throws NoExisteException {
+       int indice = -1;
+       for (int i = 0; i < pacientes.size(); i++) {
+           if (pacientes.get(i).darCodigo() == cod) {
+               indice = i;
+               break;
+           }
+       }
+       if (indice == -1) {
+           throw new NoExisteException("No existe un paciente con el código " + cod);
+       }
+       pacientes.add(indice + 1, pac);
+   }
 
     /**
      * Busca el paciente con el código dado en la lista de pacientes.
