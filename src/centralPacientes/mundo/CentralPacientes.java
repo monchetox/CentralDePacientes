@@ -100,10 +100,10 @@ public class CentralPacientes {
             }
         }
         if (indice == -1) {
-            throw new NoExisteException("No existe un paciente con el código " + cod);
+            throw new NoExisteException(cod);
         }
         pacientes.add(indice, pac);
-
+    }
 
 
     /**
@@ -118,7 +118,7 @@ public class CentralPacientes {
            }
        }
        if (indice == -1) {
-           throw new NoExisteException("No existe un paciente con el código " + cod);
+           throw new NoExisteException(cod);
        }
        pacientes.add(indice + 1, pac);
    }
@@ -217,15 +217,15 @@ public class CentralPacientes {
             }
         }
         if (c1>c2 && c1>c3 && c1>c4 && c1>c5 && c1>c6){
-            return "Clínica del Country";
+            return "Clinica del Country";
         } else if (c2>c1 && c2>c3 && c2>c4 && c2>c5 && c2>c6) {
-            return "Clínica Palermo";
+            return "Clinica Palermo";
         } else if (c3>c1 && c3>c2 && c3>c4 && c3>c5 && c3>c6) {
-            return "Clínica Reina Sofía";
+            return "Clinica Reina Sofia";
         } else if (c4>c1 && c4>c2 && c4>c3 && c4>c5 && c4>c6) {
-            return "Clínica El Bosque";
+            return "Clinica El Bosque";
         } else if (c5>c1 && c5>c2 && c5>c3 && c5>c4 && c5>c6) {
-            return "Clínica San Ignacio";
+            return "Clinica San Ignacio";
         } else if (c6>c1 && c6>c2 && c6>c3 && c6>c4 && c6>c5) {
             return "Otra";
         }
